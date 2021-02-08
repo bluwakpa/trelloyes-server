@@ -6,17 +6,11 @@ const helmet = require('helmet')
 const winston = require('winston')
 const { NODE_ENV } = require('./config')
 const { v4: uuid } = require('uuid')
-
+const cardRouter = require('./card/card-router')
 
 const app = express()
-const cardRouter = express.Router()
 const bodyParser = express.json();
 
-const cards = [{
-    id: 1,
-    title: 'Task One',
-    content: 'This is card one'
-}];
 const lists = [{
     id: 1,
     header: 'List One',
@@ -56,22 +50,11 @@ app.use(function validateBearerToken(req, res, next) {
 
 app.use(morgan(morganOption))
 app.use(helmet())
-app.use(express.json())
 app.use(cors())
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')
 })
-
-app.get('/card', (req, res) => {
-    res
-      .json(cards);
-    
-    cardRouter
-    .route('/card')
-    .get((req, res) => {/* code not shown */})
-    .post(bodyParser, (req, res) => {/* code not shown */})
-});
   
 app.get('/list', (req, res) => {
     res

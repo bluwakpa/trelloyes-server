@@ -1,7 +1,12 @@
 const express = require('express')
-
 const cardRouter = express.Router()
 const bodyParser = express.json()
+
+const cards = [{
+    id: 1,
+    title: 'Task One',
+    content: 'This is card one'
+}]
 
 cardRouter
   .route('/card')
@@ -20,5 +25,12 @@ cardRouter
   .delete((req, res) => {
     // move implementation logic into here
   })
+
+app.use(express.json())
+
+app.get('/card', (req, res) => {
+      res
+      .json(cards);
+});
 
 module.exports = cardRouter
